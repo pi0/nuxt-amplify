@@ -14,6 +14,7 @@ export interface AmplifyComputeConfig {
   entrypoint: string;
 }
 
+
 export type AmplifyRouteTarget =
   | { type: "Static" }
   | { type: "ImageOptimization" }
@@ -40,8 +41,12 @@ export type AmplifyRoute = {
    */
   path: string;
 
+  /**
+   * An object that dictates the target to route the matched request to.
+   */
   target: AmplifyRouteTarget;
 
+  /** An object that dictates the target to fallback to if the original target returns a 404. */
   fallback?: AmplifyRouteTarget;
 };
 

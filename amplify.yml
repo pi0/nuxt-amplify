@@ -1,0 +1,24 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # - corepack enable
+        # - node --version
+        # - pnpm i
+        # - npm i -g bun
+        # - bun i
+    build:
+      commands:
+        # - bun --bun run nuxt prepare
+        # - bun --bun run build
+        # - pnpm nuxt prepare
+        # - pnpm nuxt build
+        # - rm -rf .next && mv next_out .next
+  artifacts:
+    # baseDirectory: .next
+    # files:
+    # - "**/*"
+  # cache:
+  #   paths:
+  #     - node_modules/**/*

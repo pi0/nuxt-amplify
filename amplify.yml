@@ -3,22 +3,17 @@ frontend:
   phases:
     preBuild:
       commands:
-        # - corepack enable
-        # - node --version
-        # - pnpm i
-        # - npm i -g bun
-        # - bun i
+        - nvm use 18
+        - corepack enable
+        - node --version
+        - pnpm i
     build:
       commands:
-        # - bun --bun run nuxt prepare
-        # - bun --bun run build
-        # - pnpm nuxt prepare
-        # - pnpm nuxt build
-        # - rm -rf .next && mv next_out .next
+        - pnpm build
   artifacts:
-    # baseDirectory: .next
-    # files:
-    # - "**/*"
-  # cache:
-  #   paths:
-  #     - node_modules/**/*
+    baseDirectory: .amplify
+    files:
+    - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*

@@ -14,6 +14,6 @@ frontend:
     baseDirectory: .amplify
     files:
     - "**/*"
-  cache:
-    paths:
-      - node_modules/**/*
+  # cache:
+  #   paths:
+  #     - node_modules/**/*

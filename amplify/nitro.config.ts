@@ -1,8 +1,8 @@
 import { fileURLToPath } from "node:url";
-import type { NitroPreset } from "nitropack";
+import type { Nitro, NitroPreset } from "nitropack";
 import { resolve } from "node:path";
 import { writeFile } from "node:fs/promises";
-import { AmplifyComputeConfig, AmplifyDeployManifest } from "./types";
+import { AmplifyComputeConfig, AmplifyDeployManifest, AmplifyRouteTarget } from "./types";
 
 export default <NitroPreset>{
   extends: "node-server",
@@ -17,22 +17,30 @@ export default <NitroPreset>{
   },
   hooks: {
     async compiled(nitro) {
-      await writeAmplifyFiles(nitro.options.output.dir);
+      await writeAmplifyFiles(nitro);
     },
   },
 };
 
-async function writeAmplifyFiles(outDir) {
+async function writeAmplifyFiles(nitro: Nitro) {
+  const outDir = nitro.options.output.dir
+
   // Write deploy-manifest.json
+  const computeTarget = { type: "Compute", src: "default" } as AmplifyRouteTarget
   const deployManifest: AmplifyDeployManifest = {
     version: 1,
     routes: [
+      ...nitro.options.publicAssets.map(asset => ({
+        path: `${(asset.baseURL || "").replace(/\/$/, '')}/*`,
+        target: {
+          // maxAge: asset.maxAge, // TODO: Not supported
+          type: "Static" as const
+        },
+        fallback: asset.fallthrough? computeTarget : undefined
+      })),
       {
         path: "/*",
-        target: {
-          type: "Compute",
-          src: "default",
-        },
+        target: computeTarget,
       }
     ],
     imageSettings: undefined,

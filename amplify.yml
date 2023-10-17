@@ -6,7 +6,7 @@ frontend:
         - nvm use 18
         - corepack enable
         - node --version
-        - pnpm i
+        - pnpm i -f
     build:
       commands:
         - pnpm build

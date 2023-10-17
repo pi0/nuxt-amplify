@@ -10,6 +10,9 @@ frontend:
     build:
       commands:
         - pnpm build
+    postBuild:
+      commands:
+        - cat .amplify/deploy-manifest.json
   artifacts:
     baseDirectory: .amplify
     files:

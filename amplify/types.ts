@@ -16,10 +16,10 @@ export interface AmplifyComputeConfig {
 
 
 export type AmplifyRouteTarget =
-  | { type: "Static" }
-  | { type: "ImageOptimization" }
+  | { kind: "Static"; cacheControl: string; }
+  | { kind: "ImageOptimization" }
   | {
-      type: "Compute";
+      kind: "Compute";
       /**
        * A string that indicates the name of the sub-directory in the given deployment bundle that
        * contains the primitive's executable code. Valid and required only for the Compute primitive.

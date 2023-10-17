@@ -38,6 +38,10 @@ async function writeAmplifyFiles(nitro: Nitro) {
         },
         fallback: asset.fallthrough? computeTarget : undefined
       })),
+      {
+        path: '/*',
+        target: computeTarget,
+      },
     ],
     imageSettings: undefined,
     computeResources: [{

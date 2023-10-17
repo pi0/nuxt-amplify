@@ -26,15 +26,15 @@ async function writeAmplifyFiles(nitro: Nitro) {
   const outDir = nitro.options.output.dir
 
   // Write deploy-manifest.json
-  const computeTarget = { type: "Compute", src: "default" } as AmplifyRouteTarget
+  const computeTarget = { kind: "Compute", src: "default" } as AmplifyRouteTarget
   const deployManifest: AmplifyDeployManifest = {
     version: 1,
     routes: [
       ...nitro.options.publicAssets.map(asset => ({
         path: `${(asset.baseURL || "").replace(/\/$/, '')}/*`,
         target: {
-          // maxAge: asset.maxAge, // TODO: Not supported
-          type: "Static" as const
+          cacheControl: 'public, max-age=31536000, immutable',
+          kind: "Static" as const
         },
         fallback: asset.fallthrough? computeTarget : undefined
       })),
@@ -44,6 +44,15 @@ async function writeAmplifyFiles(nitro: Nitro) {
       }
     ],
     imageSettings: undefined,
+    computeResources: [{
+      name: 'default',
+      entrypoint: "server.js",
+      runtime: "nodejs18.x",
+    }],
+    framework: {
+      name: 'nuxt',
+      version: '3.7.4'
+    }
   };
   await writeFile(
     resolve(outDir, "deploy-manifest.json"),
@@ -54,15 +63,5 @@ async function writeAmplifyFiles(nitro: Nitro) {
   await writeFile(
     resolve(outDir, "compute/default/server.js"),
     `import("./index.mjs")`
-  );
-
-  // Write .amplify-config.json
-  const computeConfig: AmplifyComputeConfig = {
-    entrypoint: "server.js",
-    runtime: "nodejs18.x",
-  };
-  await writeFile(
-    resolve(outDir, "compute/default/.amplify-config.json"),
-    JSON.stringify(computeConfig, null, 2)
   );
 }

@@ -1,9 +1,14 @@
 export interface AmplifyComputeConfig {
   /**
+   * The name property dictates the name of the provisioned compute resource. It is also the name
+   * of the sub-directory in the `compute` folder in the deployment bundle.
+   */
+  name: string;
+  /**
    * The runtime property dictates the runtime of the provisioned compute resource.
    * Values are subset of https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
    */
-  runtime?: "nodejs" | "nodejs18.x" | (string & {});
+  runtime: "nodejs16.x" | "nodejs18.x";
 
   /**
    * Specifies the starting file from which code will run for the given compute resource.
@@ -116,4 +121,27 @@ export interface AmplifyDeployManifest {
    * which provides on-demand optimization of images at runtime.
    */
   imageSettings?: AmplifyImageSettings;
+  /**
+   * Metadata about the provisioned compute resource(s). Each item in the array is an object that contains metadata
+   * about that compute resource.
+   *
+   * For example, given the following directory structure:
+   * ```
+   * .amplify
+   * └── compute
+   *     └── default
+   *         └── index.js
+   * ```
+   * The `computeResources` property would look like:
+   * ```
+   * [
+   *   {
+   *     name: 'default',
+   *     runtime: 'nodejs16.x',
+   *     entrypoint: 'index.js',
+   *   }
+   * ]
+   * ```
+   */
+  computeResources?: AmplifyComputeConfig[];
 }

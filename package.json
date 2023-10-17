@@ -17,6 +17,9 @@
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
+  "dependencies": {
+    "next": "100"
+  },
   "resolutions": {
     "next": "npm:nuxt@^3.7.4"
   }

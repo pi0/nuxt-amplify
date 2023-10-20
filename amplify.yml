@@ -12,9 +12,9 @@ frontend:
         - pnpm build
     postBuild:
       commands:
-        - cat .amplify-hosting/deploy-manifest.json | sed "s/ / /g"
+        - cat .amplify/deploy-manifest.json | sed "s/ /./g"
   artifacts:
-    baseDirectory: .amplify-hosting
+    baseDirectory: .amplify
     files:
       - "**/*"
   # cache:

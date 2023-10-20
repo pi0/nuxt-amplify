@@ -144,4 +144,10 @@ export interface AmplifyDeployManifest {
    * ```
    */
   computeResources?: AmplifyComputeConfig[];
+
+  // Framework Metadata
+  framework: {
+    name: string;
+    version: string;
+  }
 }

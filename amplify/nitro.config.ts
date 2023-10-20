@@ -50,8 +50,10 @@ async function writeAmplifyFiles(nitro: Nitro) {
       runtime: "nodejs18.x",
     }],
     framework: {
-      name: 'nuxt',
-      version: '3.7.4'
+      // @ts-expect-error https://github.com/unjs/nitro/pull/1843
+      name: nitro.options.framework.name,
+      // @ts-expect-error
+      version: nitro.options.framework.version
     }
   };
   await writeFile(

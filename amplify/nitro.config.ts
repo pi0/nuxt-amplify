@@ -33,7 +33,7 @@ async function writeAmplifyFiles(nitro: Nitro) {
       ...nitro.options.publicAssets.map(asset => ({
         path: `${(asset.baseURL || "").replace(/\/$/, '')}/*`,
         target: {
-          cacheControl: 'public, max-age=31536000, immutable',
+          cacheControl: asset.maxAge > 0 ? `public, max-age=${asset.maxAge}, immutable` : undefined,
           kind: "Static" as const
         },
         fallback: asset.fallthrough? computeTarget : undefined

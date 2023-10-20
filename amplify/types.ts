@@ -21,7 +21,7 @@ export interface AmplifyComputeConfig {
 
 
 export type AmplifyRouteTarget =
-  | { kind: "Static"; cacheControl: string; }
+  | { kind: "Static"; cacheControl?: string; }
   | { kind: "ImageOptimization" }
   | {
       kind: "Compute";

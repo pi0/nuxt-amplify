@@ -2,13 +2,13 @@ import { fileURLToPath } from "node:url";
 import type { Nitro, NitroPreset } from "nitropack";
 import { resolve } from "node:path";
 import { writeFile } from "node:fs/promises";
-import { AmplifyComputeConfig, AmplifyDeployManifest, AmplifyRouteTarget } from "./types";
+import { AmplifyDeployManifest, AmplifyRouteTarget } from "./types";
 
 export default <NitroPreset>{
   extends: "node-server",
   entry: fileURLToPath(new URL("entry.ts", import.meta.url)),
   output: {
-    dir: "{{ rootDir }}/.amplify",
+    dir: "{{ rootDir }}/.amplify-hosting",
     serverDir: "{{ output.dir }}/compute/default",
     publicDir: "{{ output.dir }}/static",
   },

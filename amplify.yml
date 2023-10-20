@@ -13,10 +13,10 @@ frontend:
     postBuild:
       commands:
         - cat .amplify/deploy-manifest.json
-  artifacts:
-    baseDirectory: .amplify
-    files:
-      - "**/*"
+  # artifacts:
+  #   baseDirectory: .amplify
+  #   files:
+  #     - "**/*"
   # cache:
   #   paths:
   #     - node_modules/**/*

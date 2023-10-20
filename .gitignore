@@ -25,3 +25,4 @@ logs
 
 # AWS Amplify
 .amplify
+.amplify-hosting

@@ -1,6 +1,5 @@
 import { defineNuxtConfig } from "nuxt/config";
 import { version as nuxtVersion } from 'nuxt/package.json'
-import { provider } from 'std-env'
 import { AWSAmplifyCustomConfig } from "./amplify/types";
 
 declare module 'nitropack' {
@@ -8,12 +7,6 @@ declare module 'nitropack' {
     awsAmplify?: AWSAmplifyCustomConfig
   }
 }
-
-console.log('^^^^^^^^^^^^ Provider Info', {
-  provider,
-  AWS_APP_ID: process.env.AWS_APP_ID,
-  CODEBUILD_BUILD_ARN: process.env.CODEBUILD_BUILD_ARN
-})
 
 export default defineNuxtConfig({
   app: {

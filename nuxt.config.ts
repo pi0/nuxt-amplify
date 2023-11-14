@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     awsAmplify: {
       imageOptimization: {
         path: "/_nuxt/image",
-        cacheControl: "public, max-age=1, immutable"
+        cacheControl: "public, max-age=3600, immutable"
       },
       imageSettings: {
           sizes: [100, 200,300,500,640],

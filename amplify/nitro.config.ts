@@ -28,8 +28,25 @@ async function writeAmplifyFiles(nitro: Nitro) {
 
   // Generate routes
   const routes: AmplifyRoute[] = []
+
   let hasWildcardPublicAsset = false
+
+    // @ts-expect-error
+    if (nitro.options.awsAmplify?.imageOptimization) {
+      // @ts-expect-error
+      const { path, cacheControl } = nitro.options.awsAmplify?.imageOptimization
+      routes.push({
+        path,
+        target: {
+          kind: "ImageOptimization",
+          cacheControl,
+        },
+      })
+    }
+
+
   const computeTarget = { kind: "Compute", src: "default" } as AmplifyRouteTarget
+
   for (const publicAsset of nitro.options.publicAssets) {
     if (!publicAsset.baseURL || publicAsset.baseURL === "/") {
       hasWildcardPublicAsset = true
@@ -42,18 +59,6 @@ async function writeAmplifyFiles(nitro: Nitro) {
         kind: "Static"
       },
       fallback: publicAsset.fallthrough ? computeTarget : undefined
-    })
-  }
-  // @ts-expect-error
-  if (nitro.options.awsAmplify?.imageOptimization) {
-    // @ts-expect-error
-    const { path, cacheControl } = nitro.options.awsAmplify?.imageOptimization
-    routes.push({
-      path,
-      target: {
-        kind: "ImageOptimization",
-        cacheControl,
-      },
     })
   }
   if (hasWildcardPublicAsset) {

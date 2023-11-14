@@ -81,7 +81,9 @@ async function writeAmplifyFiles(nitro: Nitro) {
 
   // Prefix with baseURL
   for (const route of routes) {
-    route.path = joinURL(nitro.options.baseURL, route.path)
+    if (route.path !== "/*") {
+      route.path = joinURL(nitro.options.baseURL, route.path)
+    }
   }
 
   // Generate deploy-manifest.json

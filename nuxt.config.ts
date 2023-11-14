@@ -9,9 +9,12 @@ declare module 'nitropack' {
   }
 }
 
+console.log('>>>provider', provider, 'env:', process.env.AWS_APP_ID)
+
 export default defineNuxtConfig({
   nitro: {
-    preset: provider === 'aws_amplify' ? "./amplify" : undefined,
+    // preset: provider === 'aws_amplify' ? "./amplify" : undefined,
+    preset:  "./amplify",
     awsAmplify: {
       imageOptimization: {
         path: "/_nuxt/image",

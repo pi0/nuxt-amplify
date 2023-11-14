@@ -2,6 +2,7 @@ import { fileURLToPath } from "node:url";
 import type { Nitro, NitroPreset } from "nitropack";
 import { resolve } from "node:path";
 import { writeFile } from "node:fs/promises";
+import { joinURL } from 'ufo'
 import { AmplifyDeployManifest, AmplifyRoute, AmplifyRouteTarget } from "./types";
 
 export default <NitroPreset>{
@@ -10,7 +11,7 @@ export default <NitroPreset>{
   output: {
     dir: "{{ rootDir }}/.amplify-hosting",
     serverDir: "{{ output.dir }}/compute/default",
-    publicDir: "{{ output.dir }}/static",
+    publicDir: "{{ output.dir }}/static{{ baseURL }}",
   },
   commands: {
     preview: "node ./compute/default/server.js",
@@ -77,6 +78,11 @@ async function writeAmplifyFiles(nitro: Nitro) {
       kind: "Static"
     } : undefined
   })
+
+  // Prefix with baseURL
+  for (const route of routes) {
+    route.path = joinURL(nitro.options.baseURL, route.path)
+  }
 
   // Generate deploy-manifest.json
   const deployManifest: AmplifyDeployManifest = {

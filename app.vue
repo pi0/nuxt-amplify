@@ -10,8 +10,7 @@ useServerSeoMeta({
 });
 
 const img = useImage()
-const catURL = img("/cat.png", { width: 640 });
-console.log(catURL);
+const catURL = img("/base/cat.png", { width: 640 });
 </script>
 
 <style scoped>

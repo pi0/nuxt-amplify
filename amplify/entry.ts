@@ -11,5 +11,5 @@ server.listen(3000, (err) => {
     console.error(err);
     process.exit(1);
   }
-  console.log(`Listening on http://localhost:3000 (AWS Amplify)`);
+  console.log(`Listening on http://localhost:3000 (AWS Amplify Hosting)`);
 });

@@ -8,7 +8,7 @@ Project is configured to use (local) Amplify Nitro preset.
 
 Preset defenition is in [`amplify/nitro.config.ts`](./amplify/nitro.config.ts) (Also checkout [types](./amplify/types.ts) and [server entry](./amplify/entry.ts)).
 
-When building project with `pnpm run build`, the `.amplify/` directory will be created.
+When building project with `AWS_APP_ID=1 pnpm run build`, the `.amplify-hosting/` directory will be created.
 
 ## Setup
 

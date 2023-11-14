@@ -27,6 +27,7 @@ export default defineNuxtConfig({
       imageSettings: {
           sizes: [100, 200,300,500,640],
           domains: [],
+          remotePatterns: [],
           formats: ["image/jpeg", "image/png", "image/webp", "image/avif"],
           minimumCacheTTL: 60,
           dangerouslyAllowSVG: false

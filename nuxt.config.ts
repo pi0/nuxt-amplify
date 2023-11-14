@@ -9,7 +9,11 @@ declare module 'nitropack' {
   }
 }
 
-console.log('>>>provider', provider, 'env:', process.env.AWS_APP_ID)
+console.log('^^^^^^^^^^^^ Provider Info', {
+  provider,
+  AWS_APP_ID: process.env.AWS_APP_ID,
+  CODEBUILD_BUILD_ARN: process.env.CODEBUILD_BUILD_ARN
+})
 
 export default defineNuxtConfig({
   nitro: {

@@ -11,10 +11,13 @@
   },
   "devDependencies": {
     "@nuxt/image": "^1.0.0",
-    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@nuxtjs/tailwindcss": "^6.9.4",
     "js-confetti": "^0.11.0",
-    "nuxt": "^3.8.0",
-    "vue": "^3.3.5",
+    "nuxt": "^3.8.1",
+    "vue": "^3.3.8",
     "vue-router": "^4.2.5"
+  },
+  "resolutions": {
+    "nitropack": "npm:nitropack-nightly"
   }
 }

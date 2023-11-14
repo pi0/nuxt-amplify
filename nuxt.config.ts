@@ -5,9 +5,8 @@ import { version as nuxtVersion } from 'nuxt/package.json'
 export default defineNuxtConfig({
   nitro: {
     preset: "./amplify",
-    // @ts-expect-error https://github.com/unjs/nitro/pull/1843 > Nuxt
     framework: {
-      name: 'nitro',
+      name: 'nuxt',
       version: nuxtVersion
     }
   },

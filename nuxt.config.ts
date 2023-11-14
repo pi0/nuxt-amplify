@@ -25,14 +25,8 @@ export default defineNuxtConfig({
         cacheControl: "public, max-age=1, immutable"
       },
       imageSettings: {
-          sizes: [100, 200],
+          sizes: [100, 200,300,500,640],
           domains: [],
-          remotePatterns: [{
-            protocol: "https",
-            hostname: "images.unsplash.com",
-            port: "443",
-            pathname: ""
-          }],
           formats: ["image/jpeg", "image/png", "image/webp", "image/avif"],
           minimumCacheTTL: 60,
           dangerouslyAllowSVG: false
@@ -41,6 +35,14 @@ export default defineNuxtConfig({
     framework: {
       name: 'nuxt',
       version: nuxtVersion
+    }
+  },
+  image: {
+    provider: 'amplify',
+    providers: {
+      amplify: {
+        provider: '~/amplify/image-provider.ts',
+      }
     }
   },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/image"]

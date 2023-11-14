@@ -1,10 +1,9 @@
 import { defineNuxtConfig } from "nuxt/config";
 import { version as nuxtVersion } from 'nuxt/package.json'
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   nitro: {
-    preset: "./amplify",
+    preset: process.env.AWS_APP_ID ? "./amplify" : undefined,
     framework: {
       name: 'nuxt',
       version: nuxtVersion

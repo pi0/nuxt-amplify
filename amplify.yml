@@ -13,6 +13,7 @@ frontend:
     postBuild:
       commands:
         - cat .amplify-hosting/deploy-manifest.json | sed "s/ /./g"
+        - cat node_modules/std-env/package.json | head -n 3
   artifacts:
     baseDirectory: .amplify-hosting
     files:

@@ -44,6 +44,18 @@ async function writeAmplifyFiles(nitro: Nitro) {
       fallback: publicAsset.fallthrough ? computeTarget : undefined
     })
   }
+  // @ts-expect-error
+  if (nitro.options.awsAmplify?.imageOptimization) {
+    // @ts-expect-error
+    const { path, cacheControl } = nitro.options.awsAmplify?.imageOptimization
+    routes.push({
+      path,
+      target: {
+        kind: "ImageOptimization",
+        cacheControl,
+      },
+    })
+  }
   if (hasWildcardPublicAsset) {
     routes.push({
       path: "/*.*",
@@ -65,7 +77,8 @@ async function writeAmplifyFiles(nitro: Nitro) {
   const deployManifest: AmplifyDeployManifest = {
     version: 1,
     routes,
-    imageSettings: undefined,
+    // @ts-expect-error
+    imageSettings: nitro.options.awsAmplify?.imageSettings || undefined,
     computeResources: [{
       name: 'default',
       entrypoint: "server.js",

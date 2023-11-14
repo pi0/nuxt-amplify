@@ -4,20 +4,19 @@ frontend:
     preBuild:
       commands:
         - nvm use 18
-        - corepack enable
         - node --version
-        - pnpm i -f
+        - corepack enable
+        - npx --yes nypm install
     build:
       commands:
         - pnpm build
     postBuild:
       commands:
         - cat .amplify-hosting/deploy-manifest.json | sed "s/ /./g"
-        - cat node_modules/std-env/package.json | head -n 3
   artifacts:
     baseDirectory: .amplify-hosting
     files:
       - "**/*"
-  # cache:
-  #   paths:
-  #     - node_modules/**/*
+  cache:
+    paths:
+      - node_modules/**/*

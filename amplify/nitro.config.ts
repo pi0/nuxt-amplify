@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url";
 import type { Nitro, NitroPreset } from "nitropack";
 import { resolve } from "node:path";
 import { writeFile } from "node:fs/promises";
-import { AmplifyDeployManifest, AmplifyRouteTarget } from "./types";
+import { AmplifyDeployManifest, AmplifyRoute, AmplifyRouteTarget } from "./types";
 
 export default <NitroPreset>{
   extends: "node-server",
@@ -25,24 +25,46 @@ export default <NitroPreset>{
 async function writeAmplifyFiles(nitro: Nitro) {
   const outDir = nitro.options.output.dir
 
-  // Write deploy-manifest.json
+
+  // Generate routes
+  const routes: AmplifyRoute[] = []
+  let hasWildcardPublicAsset = false
   const computeTarget = { kind: "Compute", src: "default" } as AmplifyRouteTarget
+  for (const publicAsset of nitro.options.publicAssets) {
+    if (!publicAsset.baseURL || publicAsset.baseURL === "/") {
+      hasWildcardPublicAsset = true
+      continue
+    }
+    routes.push({
+      path: `${publicAsset.baseURL!.replace(/\/$/, '')}/*`,
+      target: {
+        cacheControl: publicAsset.maxAge > 0 ? `public, max-age=${publicAsset.maxAge}, immutable` : undefined,
+        kind: "Static"
+      },
+      fallback: publicAsset.fallthrough ? computeTarget : undefined
+    })
+  }
+  if (hasWildcardPublicAsset) {
+    routes.push({
+      path: "/*.*",
+      target: {
+        kind: "Static"
+      },
+      fallback: computeTarget
+    })
+  }
+  routes.push({
+    path: '/*',
+    target: computeTarget,
+    fallback: hasWildcardPublicAsset ? {
+      kind: "Static"
+    } : undefined
+  })
+
+  // Generate deploy-manifest.json
   const deployManifest: AmplifyDeployManifest = {
     version: 1,
-    routes: [
-      ...nitro.options.publicAssets.map(asset => ({
-        path: `${(asset.baseURL || "").replace(/\/$/, '')}/*`,
-        target: {
-          cacheControl: asset.maxAge > 0 ? `public, max-age=${asset.maxAge}, immutable` : undefined,
-          kind: "Static" as const
-        },
-        fallback: asset.fallthrough? computeTarget : undefined
-      })),
-      {
-        path: '/*',
-        target: computeTarget,
-      },
-    ],
+    routes,
     imageSettings: undefined,
     computeResources: [{
       name: 'default',

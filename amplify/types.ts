@@ -69,7 +69,7 @@ export type AmplifyImageSettings = {
    * Array of allowed external patterns that can use Image Optimization.
    * Similar to `domains` but provides more control with RegExp.
    */
-  remotePatterns?: {
+  remotePatterns: {
     /** The protocol of the allowed remote pattern. Can be `http` or `https`. */
     protocol?: "http" | "https";
     /**

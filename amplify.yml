@@ -3,16 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 18
-        - node --version
-        - corepack enable
-        - npx --yes nypm install
+        - nvm use 18 && node --version
+        - corepack enable && npx --yes nypm install
     build:
       commands:
         - pnpm build
-    postBuild:
-      commands:
-        - cat .amplify-hosting/deploy-manifest.json | sed "s/ /./g"
   artifacts:
     baseDirectory: .amplify-hosting
     files:

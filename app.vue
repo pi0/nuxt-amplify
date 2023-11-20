@@ -13,6 +13,8 @@ const img = useImage()
 const catURL = img("/cat.png", { width: 640 });
 
 const rendered = useState(() => new Date().toISOString())
+
+const route = useRoute()
 </script>
 
 <style scoped>
@@ -29,5 +31,6 @@ main {
   >
     <h1 class="text-5xl">Nuxt app successfully deployed on AWS Amplify!</h1>
     <p>Rendered at: {{ rendered }}</p>
+    <p>Route: {{ route.fullPath }}</p>
   </main>
 </template>

@@ -2,14 +2,6 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Amplify Preset
-
-Project is configured to use (local) Amplify Nitro preset.
-
-Preset defenition is in [`amplify/nitro.config.ts`](./amplify/nitro.config.ts) (Also checkout [types](./amplify/types.ts) and [server entry](./amplify/entry.ts)).
-
-When building project with `AWS_APP_ID=1 pnpm run build`, the `.amplify-hosting/` directory will be created.
-
 ## Setup
 
 Make sure to install the dependencies:

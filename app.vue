@@ -11,6 +11,8 @@ useServerSeoMeta({
 
 const img = useImage()
 const catURL = img("/cat.png", { width: 640 });
+
+const rendered = useState(() => new Date().toISOString())
 </script>
 
 <style scoped>
@@ -26,5 +28,6 @@ main {
     :style="`background-image: url('${catURL}')`"
   >
     <h1 class="text-5xl">Nuxt app successfully deployed on AWS Amplify!</h1>
+    <p>Rendered at: {{ rendered }}</p>
   </main>
 </template>

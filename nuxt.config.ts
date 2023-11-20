@@ -1,8 +1,5 @@
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/image"],
-  nitro: {
-    preset: './preset'
-  }
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/image"]
 });
